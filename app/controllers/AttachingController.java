@@ -43,9 +43,18 @@ public class AttachingController extends Controller {
         return ok(views.html.attaching.render());
     }
 
+    public CompletionStage<Result> attach() {
+        Attaching attaching = formFactory.form(Attaching.class).bindFromRequest().get();
+        attaching.status = "ATTACHED";
+        return attachingRepository.update(attaching).thenApplyAsync( a -> {
+            return redirect(routes.AttachingController.index());
+        }, ec.current());
+    }
+
     public CompletionStage<Result> addAttaching() {
         Attaching attaching = formFactory.form(Attaching.class).bindFromRequest().get();
         attaching.created = new Date(new java.util.Date().getTime());
+        attaching.status="REQUEST";
         return attachingRepository.add(attaching).thenApplyAsync(a -> {
             return redirect(routes.AttachingController.index());
         }, ec.current());

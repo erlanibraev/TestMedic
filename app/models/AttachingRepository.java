@@ -13,6 +13,8 @@ public interface AttachingRepository {
 
     CompletionStage<Attaching> add(Attaching attaching);
 
+    CompletionStage<Attaching> update(Attaching attaching);
+
     CompletionStage<Stream<Attaching>> list();
 
 }
