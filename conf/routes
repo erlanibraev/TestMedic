@@ -6,6 +6,7 @@
 GET     /                               controllers.IndexController.index()
 GET     /person                         controllers.PersonController.index()
 GET     /organization                   controllers.OrganizationController.index()
+GET     /attaching                      controllers.AttachingController.index()
 
 #REST
 POST    /rest/person                    controllers.PersonController.addPerson()
