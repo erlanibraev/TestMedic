@@ -1,0 +1,18 @@
+@()
+
+@main("Пациенты") {
+    <script type='text/javascript' src='@routes.Assets.at("javascripts/person.js")'></script>
+
+    <a href="/">Назад</a>
+
+    <ul id="persons"></ul>
+
+    <form method="POST" action="@routes.PersonController.addPerson()">
+        @helper.CSRF.formField
+        <input type="text" name="iin"/>
+        <input type="text" name="lastName"/>
+        <input type="text" name="firstName"/>
+        <input type="text" name="middleName"/>
+        <button>Добавить</button>
+    </form>
+}

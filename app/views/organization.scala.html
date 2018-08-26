@@ -1,0 +1,16 @@
+@()
+
+@main("Организации") {
+    <script type='text/javascript' src='@routes.Assets.at("javascripts/organization.js")'></script>
+    <a href="/">Назад</a>
+
+    <ul id="organizations"></ul>
+
+    <form method="POST" action="@routes.OrganizationController.addOrganization()">
+        @helper.CSRF.formField
+        <input type="text" name="name"/>
+        <button>Добавить</button>
+    </form>
+
+
+}
