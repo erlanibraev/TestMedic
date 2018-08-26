@@ -15,5 +15,8 @@ GET     /rest/persons                   controllers.PersonController.getPersons(
 POST    /rest/organization              controllers.OrganizationController.addOrganization()
 GET     /rest/organizations             controllers.OrganizationController.getOrganizations()
 
+POST    /rest/attaching                 controllers.AttachingController.addAttaching()
+GET     /rest/attachings                controllers.AttachingController.getAttachings()
+
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)

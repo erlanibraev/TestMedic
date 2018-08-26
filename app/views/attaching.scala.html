@@ -1,8 +1,26 @@
-@{}
+@()
+
+@import helper._
 
 @main("Присоединение") {
-
+    <script type='text/javascript' src='@routes.Assets.at("javascripts/attaching.js")'></script>
+    <script type='text/javascript' src='@routes.Assets.at("javascripts/person.js")'></script>
+    <script type='text/javascript' src='@routes.Assets.at("javascripts/organization.js")'></script>
     <a href="/">Назад</a>
 
+    <ul id="attachings"></ul>
 
+    <form method="POST" action="@routes.AttachingController.addAttaching()">
+        @helper.CSRF.formField
+        <select name="status">
+            <option value="REQUEST">Запрос</option>
+            <option value="ATTACHED">Прикреплено</option>
+        </select>
+        <select name="personId" id="person_id">
+        </select>
+        <select name="organizationId" id="organization_id">
+
+        </select>
+        <button>Отправить</button>
+    </form>
 }

@@ -16,13 +16,15 @@ public class Attaching {
     public Date created;
     public Date processed;
     public String status;
+    public Long personId;
+    public Long organizationId;
 
-    @ManyToOne
-    @JoinColumn(name="person_id", nullable = true)
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name="personId", nullable = true, insertable = false, updatable = false)
     public Person person;
 
-    @ManyToOne
-    @JoinColumn(name="organization_id", nullable = true)
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name="organizationId", nullable = true, insertable = false, updatable = false)
     public Organization organization;
 
 
