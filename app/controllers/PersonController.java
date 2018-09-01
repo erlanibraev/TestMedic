@@ -26,8 +26,10 @@ public class PersonController extends Controller {
         this.ec = ec;
     }
 
-    public Result index() {
-        return ok(views.html.person.render());
+    public CompletionStage<Result> index() {
+        return personRepository.list().thenApplyAsync(personStream -> {
+            return ok(views.html.person.render(personStream.collect(Collectors.toList())));
+        }, ec.current());
     }
 
     public CompletionStage<Result> addPerson() {

@@ -1,9 +1,6 @@
 package controllers;
 
-import models.Attaching;
-import models.AttachingRepository;
-import models.Person;
-import models.PersonRepository;
+import models.*;
 import play.data.FormFactory;
 import play.libs.concurrent.HttpExecutionContext;
 import play.mvc.Controller;
@@ -26,21 +23,31 @@ public class AttachingController extends Controller {
     private final HttpExecutionContext ec;
     private final AttachingRepository attachingRepository;
     private final PersonRepository personRepository;
+    private final OrganizationRepository organizationRepository;
 
     @Inject
     public AttachingController(FormFactory formFactory,
                                HttpExecutionContext ec,
                                AttachingRepository attachingRepository,
-                               PersonRepository personRepository
+                               PersonRepository personRepository,
+                               OrganizationRepository organizationRepository
     ) {
         this.formFactory = formFactory;
         this.ec = ec;
         this.attachingRepository = attachingRepository;
         this.personRepository = personRepository;
+        this.organizationRepository = organizationRepository;
     }
 
     public Result index() {
         return ok(views.html.attaching.render());
+    }
+
+    public CompletionStage<Result> setAttach(Long personId) {
+        Person person = personRepository.findOne(personId);
+        return organizationRepository.list().thenApplyAsync( organizationStream -> {
+            return ok(views.html.attach.render(person, organizationStream.collect(Collectors.toList())));
+        }, ec.current());
     }
 
     public CompletionStage<Result> attach() {

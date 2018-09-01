@@ -1,11 +1,20 @@
-@()
+@(persons: List[Person])
 
 @main("Пациенты") {
-    <script type='text/javascript' src='@routes.Assets.at("javascripts/person.js")'></script>
+<!--    <script type='text/javascript' src='@routes.Assets.at("javascripts/person.js")'></script> -->
 
     <a href="/">Назад</a>
 
     <ul id="persons"></ul>
+
+    <ul id="persons">
+    @for(person <- persons) {
+        <li>
+            @person.iin  @person.lastName @person.firstName @person.middleName
+            <a href="/attach/@person.id">Прикрепить</a>
+        </li>
+    }
+    </ul>
 
     <form method="POST" action="@routes.PersonController.addPerson()">
         @helper.CSRF.formField

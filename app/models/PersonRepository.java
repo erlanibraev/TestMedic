@@ -13,5 +13,7 @@ public interface PersonRepository {
 
     CompletionStage<Person> add(Person person);
 
+    Person findOne(Long personId);
+
     CompletionStage<Stream<Person>> list();
 }

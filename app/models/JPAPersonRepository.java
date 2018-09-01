@@ -31,6 +31,11 @@ public class JPAPersonRepository implements PersonRepository {
     }
 
     @Override
+    public Person findOne(Long personId) {
+        return wrap(em -> findOne(em, personId));
+    }
+
+    @Override
     public CompletionStage<Stream<Person>> list() {
         return supplyAsync(() -> wrap(em -> list(em)), executionContext);
     }
@@ -47,5 +52,11 @@ public class JPAPersonRepository implements PersonRepository {
     private Stream<Person> list(EntityManager em) {
         List<Person> persons = em.createQuery("select p from Person p", Person.class).getResultList();
         return persons.stream();
+    }
+
+    private Person findOne(EntityManager em, Long persinId) {
+        return em.createQuery("select p from Person p where id = :personId", Person.class)
+            .setParameter("personId",persinId)
+            .getSingleResult();
     }
 }

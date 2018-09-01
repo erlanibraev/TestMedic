@@ -1,0 +1,17 @@
+@(person: Person, organizations: List[Organization])
+
+@main("Присоденинение к организации") {
+
+    <from method="POST" action="@routes.AttachingController.addAttaching()">
+        @helper.CSRF.formField
+        <input type="hidden" name="personId" value="@person.id">
+        @person.iin  @person.lastName @person.firstName @person.middleName
+
+        <select name="organizationId" >
+            @for(organization <- organizations) {
+                <option value="@organization.id">@organization.name</option>
+            }
+        </select>
+        <button>Добавить</button>
+    </from>
+}
